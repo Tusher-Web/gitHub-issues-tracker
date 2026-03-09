@@ -2,10 +2,168 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GitHub Issues Tracker</title>
+
+    <!-- External CSS File -->
+    <link rel="stylesheet" href="styles/style.css">
+
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="assets/favicon-github.png" type="image/x-icon">
+
+    <!-- DaisyUI + Tailwind CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap" rel="stylesheet">
+
+    <!-- FontAwesome CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
-<body>
-    
+
+<body class="bg-base-200">
+
+    <!-- Login Page -->
+    <div id="loginPage" class="flex justify-center items-center min-h-screen p-4">
+        <div class="card w-full max-w-md bg-base-100 shadow-xl p-4">
+            <img class="w-[100px] h-[100px] block mx-auto" src="assets/github-logo.png" alt="GitHub Issues Tracker">
+            <h2 class="text-center text-2xl mt-6">GitHub Issues Tracker</h2>
+            <p class="text-center text-[#64748B] mb-4">Sign in to manage your issues</p>
+            <label class="label">
+                <span class="label-text font-medium">Username</span>
+            </label>
+            <input id="username" class="input input-bordered w-full" placeholder="Username">
+            <label class="label">
+                <span class="label-text-alt text-primary mb-3">Default: admin</span>
+            </label>
+            <label class="label">
+                <span class="label-text font-medium">Password</span>
+            </label>
+            <input id="password" type="password" class="input input-bordered w-full" placeholder="Password">
+            <label class="label">
+                <span class="label-text-alt text-primary mb-3">Default: admin123</span>
+            </label>
+            <button id="loginBtn" class="btn btn-primary w-full my-4">Login</button>
+            <div class="divider my-2">OR</div>
+            <div class="text-center space-y-2">
+                <p class="font-medium">Demo Credentials:</p>
+                <div class="bg-base-200 rounded-lg p-4 text-left text-sm">
+                    <p><strong>Username:</strong> admin</p>
+                    <p><strong>Password:</strong> admin123</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+<!-- Main Page -->
+<div id="dashboardPage" class="hidden">
+
+
+    <!-- Navigation Area -->
+
+    <div class="navbar bg-base-100 shadow mb-6 flex flex-col md:flex-row md:justify-between gap-3 px-4 md:px-10 sticky top-0">
+
+        <div class="flex items-center">
+            <img class="w-[37px] h-[37px] mr-[10px]" src="assets/github-logo.png" alt="GitHub Issues Tracker">
+            <h2 class="text-xl md:text-2xl">GitHub Issues Tracker</h2>
+        </div>
+
+        <div class="flex gap-2 w-full md:w-auto">
+            <input id="searchInput" class="input input-bordered w-full md:w-auto" placeholder="Search">
+            <button id="searchBtn" class="btn btn-primary">Search</button>
+        </div>
+
+    </div>
+
+
+
+    <!-- Tabs -->
+    <div class="tabs tabs-boxed mb-6 mx-auto w-fit">
+        <button class="tab tabBtn tab-active" data-status="all">All</button>
+        <button class="tab tabBtn" data-status="open">Open</button>
+        <button class="tab tabBtn" data-status="closed">Closed</button>
+    </div>
+
+
+
+    <!-- Issue Counter and Summary -->
+    <div class="flex flex-col md:flex-row justify-between items-center gap-4 bg-base-100 p-4 rounded-lg shadow mb-6 max-w-6xl mx-auto">
+
+        <div class="flex items-center gap-3">
+            <div class="w-12 h-12 rounded-full bg-purple-100 flex items-center justify-center text-xl">
+                <img class="" src="assets/Aperture.png" alt="">
+            </div>
+
+            <div>
+                <h2 class="font-bold text-lg"> <span id="issueCount">0</span> Issues </h2>
+                <p class="text-sm text-gray-500"> Track and manage your project issues </p>
+            </div>
+        </div>
+
+        <div class="flex gap-6 text-sm">
+            <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-green-500"></span>
+                Open
+            </div>
+
+            <div class="flex items-center gap-2">
+                <span class="w-3 h-3 rounded-full bg-purple-500"></span>
+                Closed
+            </div>
+        </div>
+
+    </div>
+
+
+
+    <!-- Spinner -->
+    <div id="loading" class="text-center hidden my-10">
+        <span class="loading loading-spinner loading-lg text-primary"></span>
+    </div>
+
+
+    <!-- Issues Area -->
+    <div id="issuesContainer" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-5 md:gap-6 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-8"></div>
+
+
+    <!-- Modals -->
+    <dialog id="issueModal" class="modal">
+        <div class="modal-box max-w-2xl">
+            <h2 id="modalTitle" class="text-2xl font-bold mb-2"></h2>
+            <div id="modalStatus" class="mb-3"></div>
+            <div id="modalLabels" class="flex gap-2 mb-4"></div>
+            <p id="modalDescription" class="text-gray-600 mb-5"></p>
+
+        <div class="bg-base-200 p-4 rounded-lg flex justify-between">
+            <div>
+                <p class="text-sm text-gray-500">Assignee:</p>
+                <p id="modalAuthor" class="font-bold"></p>
+            </div>
+
+            <div>
+                <p class="text-sm text-gray-500">Priority:</p>
+                <span id="modalPriority" class="badge badge-error"></span>
+            </div>
+        </div>
+
+        <div class="modal-action">
+            <form method="dialog">
+            <button class="btn btn-primary">Close</button>
+            </form>
+        </div>
+
+        </div>
+    </dialog>
+
+</div>
+    <!-- External JavaScript File -->
+    <script src="script.js"></script>
+
+    <!-- DaisyUI + Tailwind JavaScript File -->
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+
 </body>
 </html>
