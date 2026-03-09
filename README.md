@@ -41,3 +41,16 @@ if(true){
 console.log(chatNote);
 ```
 
+## 2️⃣ What is the spread operator (...)?
+
+### Spread Operator
+The spread operator is just three dots ... and it does one simple thing. It takes a list of items and unpacks them one by one. Think of it like a bag of fruits . Instead of handing someone the whole bag, take each fruit out and place them individually on the table. That's exactly what spread operator does.
+
+```JavaScript
+const fruits = ["apple", "orange", "lemon", "mango", "grape", "peach"];
+console.log(...fruits); 
+```
+
+
+
+
