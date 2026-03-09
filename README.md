@@ -54,6 +54,28 @@ console.log(...fruits);
 ## 3️⃣ What is the difference between map(), filter(), and forEach()?
 JavaScript offers several powerful methods for working with arrays. Among the most commonly used are `map`, `filter`, and `forEach`. Each of these methods has a specific purpose and is useful in different situations. Understanding their differences is essential for getting the exact output from the code.
 
+### map
+map goes through every item in an array, transforms it, and gives back a new array. For Example, it's like taking a list of prices and doubling every single one, and the original list stays untouched, and you get a fresh new list back.
+It always returns a new array with the changed items, and the original array is never affected. 
+
+```JavaScript
+const numbers = [1, 2, 3, 4];
+const doubled = numbers.map(num => num * 2);
+console.log(doubled);
+```
+
+### filter
+filter goes through every item in an array and keeps only the ones that pass a test. For Example, it's like going through a list of numbers and picking out only the even ones — you get a smaller list back with just the items that made the cut.
+
+Just like map, it returns a new array and never touches the original.
+
+```JavaScript
+const numbers = [1, 2, 3, 4];
+
+const evenNumbers = numbers.filter(num => num % 2 === 0);
+console.log(evenNumbers);
+```
+
 
 ### forEach
 forEach goes through every item in an array and does something with it,but it never gives anything back. For instance, it's like reading every item on a shopping list out loud. The list stays the same, you're just doing something with each item.It doesn't return a new array.
@@ -62,5 +84,6 @@ forEach goes through every item in an array and does something with it,but it ne
 const numbers = [1, 2, 3, 4];
 numbers.forEach(num => console.log(num * 2));
 ```
+
 
 
