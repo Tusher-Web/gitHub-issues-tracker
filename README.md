@@ -51,6 +51,7 @@ const fruits = ["apple", "orange", "lemon", "mango", "grape", "peach"];
 console.log(...fruits); 
 ```
 
+
 ## 3️⃣ What is the difference between map(), filter(), and forEach()?
 JavaScript offers several powerful methods for working with arrays. Among the most commonly used are `map`, `filter`, and `forEach`. Each of these methods has a specific purpose and is useful in different situations. Understanding their differences is essential for getting the exact output from the code.
 
@@ -86,4 +87,20 @@ numbers.forEach(num => console.log(num * 2));
 ```
 
 
+## 4️⃣ What is an arrow function?
+### Arrow Function
+An arrow function is just a shorter, cleaner way to write a function using => (which looks like an arrow).
 
+### Structure of an Arrow Function
+> const functionName = (parameters) => expression or { body }
+
+
+
+
+```JavaScript
+const add = (x, y, z) => {
+  console.log(x + y + z);
+}
+
+add(10, 20, 30);
+```
