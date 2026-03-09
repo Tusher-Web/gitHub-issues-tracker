@@ -51,6 +51,16 @@ const fruits = ["apple", "orange", "lemon", "mango", "grape", "peach"];
 console.log(...fruits); 
 ```
 
+## 3️⃣ What is the difference between map(), filter(), and forEach()?
+JavaScript offers several powerful methods for working with arrays. Among the most commonly used are `map`, `filter`, and `forEach`. Each of these methods has a specific purpose and is useful in different situations. Understanding their differences is essential for getting the exact output from the code.
 
+
+### forEach
+forEach goes through every item in an array and does something with it,but it never gives anything back. For instance, it's like reading every item on a shopping list out loud. The list stays the same, you're just doing something with each item.It doesn't return a new array.
+
+```JavaScript
+const numbers = [1, 2, 3, 4];
+numbers.forEach(num => console.log(num * 2));
+```
 
 
