@@ -95,12 +95,24 @@ An arrow function is just a shorter, cleaner way to write a function using => (w
 > const functionName = (parameters) => expression or { body }
 
 
-
-
 ```JavaScript
 const add = (x, y, z) => {
   console.log(x + y + z);
 }
 
 add(10, 20, 30);
+```
+
+## 5️⃣ What are template literals?
+Template literals are a way to write strings in JavaScript using backticks `` instead of quotes. It will assist in dropping variables or expressions directly inside a string using ${}, without having to break the string apart.
+
+### Structure of Template Literals
+> `Text Here ${variable} more text`
+
+
+```JavaScript
+const name = "Rohim Uddin";
+const age = 35;
+
+console.log(`My name is ${name} and I am ${age} years old.`);
 ```
